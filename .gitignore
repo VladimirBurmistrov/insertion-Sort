@@ -1,32 +1,62 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <cstring>
+#include <sstream>
+#include <iostream>
+#include <utility>
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+using namespace std;
 
-# Precompiled Headers
-*.gch
-*.pch
+bool read(double *array, unsigned int size)
+{
+	string line;
+	getline(cin, line);
+	istringstream stream(line);
+	for (unsigned int i = 0; i < size; ++i)
+	{
+		if (!(stream >> array[i]))
+		{
+			cout << "An error has occured while reading input data." << endl;
+			return false;
+		}
+	}
+	return true;
+}
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+void insertionSort(double *arr, int n)
+{
+	int i, j;
+	for (i = 1; i < n; i++)
+	{
+		for (j = (i - 1); j >= 0; j--)
+		{
+			if (arr[j + 1] < arr[j])
+			{
+				swap(arr[j], arr[j + 1]);
+			}
+		}
+	}
+}
 
-# Fortran module files
-*.mod
-*.smod
+void printArray(double arr[], int size)
+{
+	int i;
+	for (i = 0; i < size; i++)
+		cout << arr[i] << ' ';
+}
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+int main()
+{
+	unsigned int size;
+	cin >> size;
+	cin.get();
+	double *arr = new double[size];
+	if (read(arr, size))
+	{
+		insertionSort(arr, size);
+		cout << "Sorted line: \n";
+		printArray(arr, size);
+	}
 
-# Executables
-*.exe
-*.out
-*.app
+	cin.get();
+	return 0;
+}
